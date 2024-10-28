@@ -4,7 +4,7 @@ class CursoRepository{
 
     create(curso) {
         const sql = 'INSERT INTO cursos SET ?'
-        return consult(sql, { titulo: curso.titulo, descricao: curso.descricao, link: curso.link }, 'Não foi possível cadastrar curso')
+        return consult(sql, { titulo: curso.titulo, descricao: curso.descricao, link: curso.link, fonte: curso.fonte }, 'Não foi possível cadastrar curso')
     }
 
     findAll(){
