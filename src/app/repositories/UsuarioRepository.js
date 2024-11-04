@@ -1,12 +1,17 @@
 import { consult } from "../database/conexao.js"
-import bcrypt from 'bcrypt'
 
 class UsuarioRepository {
+
+    findUserByUsernameAndPassword(nome, senha) {
+        const sql = 'SELECT * FROM usuarios WHERE nome = ? AND senha = ?';
+        return consult(sql, [nome, senha], 'Erro ao buscar usuário');
+      }
+
     // CRUD
     create(usuario) {
-        // Ajuste aqui para usar 'nome' ao invés de 'name'
-        const sql = 'INSERT INTO usuarios SET ?'
-        return consult(sql, { nome: usuario.name, email: usuario.email, telefone: usuario.telefone, senha: usuario.senha }, 'Não foi possível cadastrar');
+        // Corrigido para usar 'nome' ao invés de 'name'
+        const sql = 'INSERT INTO usuarios SET ?';
+        return consult(sql, { nome: usuario.nome, email: usuario.email, telefone: usuario.telefone, senha: usuario.senha }, 'Não foi possível cadastrar');
     }
 
     findAll() {

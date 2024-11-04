@@ -2,6 +2,39 @@ import UsuarioRepository from "../repositories/UsuarioRepository.js"
 
 class UsuarioController {
 
+    async login(req, res) {
+        const { nome, senha } = req.body;
+      
+        try {
+          const user = await UsuarioRepository.findUserByUsernameAndPassword(nome, senha);
+          if (user.length > 0) {  // Se encontrou o usuário
+            req.session.userId = user[0].id;  // Armazena o ID do usuário na sessão
+            res.json({ message: 'Login bem-sucedido' });
+          } else {
+            res.status(401).json({ message: 'Credenciais inválidas' });
+          }
+        } catch (error) {
+          res.status(500).json({ message: 'Erro no login', error: error.message });
+        }
+      }
+      
+      logout(req, res) {
+        req.session.destroy(err => {
+          if (err) {
+            return res.status(500).json({ message: 'Erro ao fazer logout' });
+          }
+          res.json({ message: 'Logout bem-sucedido' });
+        });
+      }
+      
+      checkSession(req, res) {
+        if (req.session.userId) {
+          res.json({ loggedIn: true });
+        } else {
+          res.json({ loggedIn: false });
+        }
+      }
+
     async index(req, res) {
         const row = await UsuarioRepository.findAll() 
         res.json(row)

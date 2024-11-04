@@ -5,6 +5,16 @@ import CursoController from "./app/controllers/CursoController.js";
 
 const router = Router()
 
+// Rota de login
+router.post('/login', UsuarioController.login);
+
+// Rota de logout
+router.post('/logout', UsuarioController.logout);
+
+// Rota para verificar a sessão
+router.get('/checkSession', UsuarioController.checkSession);
+
+
 // ROTAS USUARIOS
 router.get('/usuarios', UsuarioController.index)
 router.get('/usuarios/:email', UsuarioController.show)
