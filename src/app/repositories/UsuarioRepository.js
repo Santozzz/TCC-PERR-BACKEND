@@ -2,9 +2,9 @@ import { consult } from "../database/conexao.js"
 
 class UsuarioRepository {
 
-    findUserByUsernameAndPassword(nome, senha) {
-        const sql = 'SELECT * FROM usuarios WHERE nome = ? AND senha = ?';
-        return consult(sql, [nome, senha], 'Erro ao buscar usuário');
+    findUserByUsernameAndPassword(email, senha) {
+        const sql = 'SELECT * FROM usuarios WHERE email = ? AND senha = ?';
+        return consult(sql, [email, senha], 'Erro ao buscar usuário');
       }
 
     // CRUD

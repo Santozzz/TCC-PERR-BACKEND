@@ -3,10 +3,10 @@ import UsuarioRepository from "../repositories/UsuarioRepository.js"
 class UsuarioController {
 
     async login(req, res) {
-        const { nome, senha } = req.body;
+        const { email, senha } = req.body;
       
         try {
-          const user = await UsuarioRepository.findUserByUsernameAndPassword(nome, senha);
+          const user = await UsuarioRepository.findUserByUsernameAndPassword(email, senha);
           if (user.length > 0) {  // Se encontrou o usuário
             req.session.userId = user[0].id;  // Armazena o ID do usuário na sessão
             res.json({ message: 'Login bem-sucedido' });
@@ -30,6 +30,7 @@ class UsuarioController {
       checkSession(req, res) {
         if (req.session.userId) {
           res.json({ loggedIn: true });
+          console.log(userId);
         } else {
           res.json({ loggedIn: false });
         }

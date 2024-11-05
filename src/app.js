@@ -7,7 +7,7 @@ import routes from './routes.js';
 const app = express();
 
 // Middlewares
-app.use(cors({ origin: 'http://localhost:8080', credentials: true }));
+app.use(cors({ credentials: true }));
 app.use(bodyParser.json());
 app.use(session({
   secret: 'seu_segredo_aqui',
