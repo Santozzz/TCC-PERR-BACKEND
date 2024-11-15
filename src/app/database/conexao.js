@@ -1,14 +1,20 @@
 import mysql from 'mysql'
 
 const conexao = mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: 'Da28360989',
-    database: 'db_perr'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT || 3306
 })
 
-conexao.connect()
+conexao.connect(error => {
+    if (error) {
+      console.error('Erro ao conectar ao banco de dados:', error);
+      return;
+    }
+    console.log('Conectado ao banco de dados MySQL.');
+})
 
 /**
  * Executa um codigo sql com ou sem valores
