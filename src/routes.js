@@ -21,6 +21,9 @@ router.get('/usuarios/:email', UsuarioController.show)
 router.post('/usuarios', UsuarioController.store)
 router.put('/usuarios/:id', UsuarioController.update)
 router.delete('/usuarios/:id', UsuarioController.delete)
+router.get('/', (req, res) => {
+    res.send('Hello Word')
+})
 
 // ROTAS VAGAS
 router.post('/vagas', VagaController.store)
