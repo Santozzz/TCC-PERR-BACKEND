@@ -13,8 +13,8 @@ conexao.connect(error => {
       console.error('Erro ao conectar ao banco de dados:', error);
       return;
     }
-    console.log('Conectado ao banco de dados MySQL.');
-})
+    console.log('Conectado ao banco de dados MySQL na Railway.');
+  });
 
 /**
  * Executa um codigo sql com ou sem valores
