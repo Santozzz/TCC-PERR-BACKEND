@@ -1,27 +1,33 @@
 import { consult } from "../database/conexao.js";
 
-class CursoRepository{
+class CursoRepository {
 
+    // Cria um novo curso
     create(curso) {
-        const sql = 'INSERT INTO cursos ?'
-        return consult(sql, { titulo: curso.titulo, descricao: curso.descricao, link: curso.link,}, 'Não foi possível cadastrar curso')
+        const sql = 'INSERT INTO cursos (titulo, descricao, link) VALUES ($1, $2, $3)';
+        const values = [curso.titulo, curso.descricao, curso.link];
+        return consult(sql, values, 'Não foi possível cadastrar o curso');
     }
 
-    findAll(){
-        const sql = 'SELECT * FROM cursos'
-        return consult(sql, 'Não foi possível achar')
+    // Busca todos os cursos
+    findAll() {
+        const sql = 'SELECT * FROM cursos';
+        return consult(sql, [], 'Não foi possível encontrar os cursos');
     }
 
+    // Deleta um curso pelo ID
     delete(id) {
-        const  sql = 'DELETE FROM cursos WHERE idcursos=?'
-        return consult(sql, id, 'Não foi possivel deletar')
+        const sql = 'DELETE FROM cursos WHERE idcursos = $1';
+        const values = [id];
+        return consult(sql, values, 'Não foi possível deletar o curso');
     }
 
+    // Atualiza os dados de um curso
     update(curso, idcursos) {
-        const  sql = 'UPDATE cursos SET ? WHERE idcursos=?'
-        return consult(sql, [curso, idcursos], 'Não foi possivel atualizar')
+        const sql = 'UPDATE cursos SET titulo = $1, descricao = $2, link = $3 WHERE idcursos = $4';
+        const values = [curso.titulo, curso.descricao, curso.link, idcursos];
+        return consult(sql, values, 'Não foi possível atualizar o curso');
     }
-
 }
 
-export default new CursoRepository()
+export default new CursoRepository();

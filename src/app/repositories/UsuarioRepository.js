@@ -1,37 +1,46 @@
-import { consult } from "../database/conexao.js"
+import { consult } from "../database/conexao.js";
 
 class UsuarioRepository {
 
+    // Busca um usuário por email e senha
     findUserByUsernameAndPassword(email, senha) {
-        const sql = 'SELECT * FROM usuarios WHERE email = ? AND senha = ?';
+        const sql = 'SELECT * FROM usuarios WHERE email = $1 AND senha = $2';
         return consult(sql, [email, senha], 'Erro ao buscar usuário');
-      }
+    }
 
-    // CRUD
+    // Cria um novo usuário
     create(usuario) {
-        // Corrigido para usar 'nome' ao invés de 'name'
-        const sql = 'INSERT INTO usuarios SET ?';
-        return consult(sql, { nome: usuario.nome, email: usuario.email, telefone: usuario.telefone, senha: usuario.senha }, 'Não foi possível cadastrar');
+        const sql = 'INSERT INTO usuarios (nome, email, telefone, senha) VALUES ($1, $2, $3, $4)';
+        const values = [usuario.nome, usuario.email, usuario.telefone, usuario.senha];
+        return consult(sql, values, 'Não foi possível cadastrar');
     }
 
+    // Busca todos os usuários
     findAll() {
-        const  sql = 'SELECT * FROM usuarios'
-        return consult(sql, 'Não foi possivel achar')
+        const sql = 'SELECT * FROM usuarios';
+        return consult(sql, [], 'Não foi possível encontrar usuários');
     }
 
+    // Busca um usuário pelo email
     findByEmail(email) {
-        const  sql = 'SELECT * FROM usuarios WHERE email=?'
-        return consult(sql, email, 'Não foi possivel achar o ID')
-    }
-    update(usuario, id) {
-        const  sql = 'UPDATE usuarios SET ? WHERE id=?'
-        return consult(sql, [usuario, id], 'Não foi possivel atualizar')
-    }
-    delete(id) {
-        const  sql = 'DELETE FROM usuarios WHERE id=?'
-        return consult(sql, id, 'Não foi possivel deletar')
+        const sql = 'SELECT * FROM usuarios WHERE email = $1';
+        const values = [email];
+        return consult(sql, values, 'Não foi possível encontrar o usuário pelo email');
     }
 
+    // Atualiza os dados de um usuário
+    update(usuario, id) {
+        const sql = 'UPDATE usuarios SET nome = $1, email = $2, telefone = $3, senha = $4 WHERE id = $5';
+        const values = [usuario.nome, usuario.email, usuario.telefone, usuario.senha, id];
+        return consult(sql, values, 'Não foi possível atualizar o usuário');
+    }
+
+    // Deleta um usuário pelo ID
+    delete(id) {
+        const sql = 'DELETE FROM usuarios WHERE id = $1';
+        const values = [id];
+        return consult(sql, values, 'Não foi possível deletar o usuário');
+    }
 }
 
-export default new UsuarioRepository()
+export default new UsuarioRepository();
