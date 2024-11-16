@@ -27,7 +27,7 @@ export const consult = (sql, values = '', mesageReject = 'Erro na consulta') => 
     return new Promise((resolve, reject) => {
         conexao.query(sql, values, (err, result) => {
             if (err) {
-                return reject(new Error(${mesageReject}: ${err.message}));
+                return reject(new Error($mesageReject, $err.message));
             }
             const row = JSON.parse(JSON.stringify(result));
             return resolve(row);
