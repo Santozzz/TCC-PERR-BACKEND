@@ -9,11 +9,11 @@ const { Client } = pkg;
 
 // Cria a conexão com o banco de dados PostgreSQL do Supabase
 const client = new Client({
-    host: process.env.DB_HOST,      // Exemplo: db.supabase.co
-    port: process.env.DB_PORT || 5432, // Porta padrão para PostgreSQL
-    user: process.env.DB_USER,      // Usuário do banco de dados
-    password: process.env.DB_PASSWORD, // Senha do banco de dados
-    database: process.env.DB_NAME,  // Nome do banco de dados
+    host: 'aws-0-sa-east-1.pooler.supabase.com',
+    user: 'postgres.inhjqkfiufeoxiqqxypm',
+    password: 'TccPerr2024@',
+    database: 'postgres',
+    port: 6543
 });
 
 client.connect(error => {
@@ -32,14 +32,20 @@ client.connect(error => {
  * @returns {Promise} Retorna uma Promise com o resultado da consulta
  */
 export const consult = (sql, values = [], mesageReject = 'Erro na consulta') => {
+    // Garantir que 'values' seja um array
+    if (!Array.isArray(values)) {
+        values = [];
+    }
+
     return new Promise((resolve, reject) => {
         client.query(sql, values, (err, result) => {
             if (err) {
                 return reject(new Error(`${mesageReject}: ${err.message}`));
             }
-            return resolve(result.rows);  // O resultado no PostgreSQL está em `result.rows`
+            return resolve(result.rows); // Retorna os resultados
         });
     });
 };
+
 
 export default client;
