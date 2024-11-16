@@ -3,7 +3,7 @@ import { consult } from "../database/conexao.js";
 class VagaRepository{
 
     create(vaga) {
-        const sql = 'INSERT INTO vagas SET ?'
+        const sql = 'INSERT INTO vagas ?'
         return consult(sql, { titulo: vaga.titulo, descricao: vaga.descricao, link: vaga.link, salario: vaga.salario, local: vaga.local }, 'Não foi possível cadastrar vaga')
     }
 

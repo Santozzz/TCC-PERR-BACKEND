@@ -10,7 +10,7 @@ class UsuarioRepository {
     // CRUD
     create(usuario) {
         // Corrigido para usar 'nome' ao invés de 'name'
-        const sql = 'INSERT INTO usuarios SET ?';
+        const sql = 'INSERT INTO usuarios ?';
         return consult(sql, { nome: usuario.nome, email: usuario.email, telefone: usuario.telefone, senha: usuario.senha }, 'Não foi possível cadastrar');
     }
 

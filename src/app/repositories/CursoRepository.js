@@ -3,7 +3,7 @@ import { consult } from "../database/conexao.js";
 class CursoRepository{
 
     create(curso) {
-        const sql = 'INSERT INTO cursos SET ?'
+        const sql = 'INSERT INTO cursos ?'
         return consult(sql, { titulo: curso.titulo, descricao: curso.descricao, link: curso.link,}, 'Não foi possível cadastrar curso')
     }
 
