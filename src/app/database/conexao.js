@@ -1,42 +1,45 @@
-import mysql from 'mysql'
+import pkg from 'pg';
 import dotenv from 'dotenv';
 
 // Carrega as variáveis de ambiente do arquivo .env
 dotenv.config();
 
-const conexao = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT || 3306
+// Desestruturação do `Client` a partir da importação padrão
+const { Client } = pkg;
+
+// Cria a conexão com o banco de dados PostgreSQL do Supabase
+const client = new Client({
+    host: process.env.DB_HOST,      // Exemplo: db.supabase.co
+    port: process.env.DB_PORT || 5432, // Porta padrão para PostgreSQL
+    user: process.env.DB_USER,      // Usuário do banco de dados
+    password: process.env.DB_PASSWORD, // Senha do banco de dados
+    database: process.env.DB_NAME,  // Nome do banco de dados
 });
 
-conexao.connect(error => {
+client.connect(error => {
     if (error) {
-      console.error('Erro ao conectar ao banco de dados:', error.message);
-      return;
+        console.error('Erro ao conectar ao banco de dados Supabase:', error.message);
+        return;
     }
-    console.log('Conectado ao banco de dados MySQL na Render.');
-  });
+    console.log('Conectado ao banco de dados PostgreSQL na Supabase.');
+});
 
 /**
- * Executa um codigo sql com ou sem valores
- * @param {string} sql instrução sql a ser executada
- * @param {string=id / [usuario, email, id, vaga, idvagas]} values valores a serem passados  para o sql
- * @param {string} mesageReject mensagem a ser exibida
- * @returns objeto da promise
+ * Executa um código SQL com ou sem valores
+ * @param {string} sql instrução SQL a ser executada
+ * @param {array} values valores a serem passados para o SQL
+ * @param {string} mesageReject mensagem a ser exibida em caso de erro
+ * @returns {Promise} Retorna uma Promise com o resultado da consulta
  */
-export const consult = (sql, values = '', mesageReject = 'Erro na consulta') => {
+export const consult = (sql, values = [], mesageReject = 'Erro na consulta') => {
     return new Promise((resolve, reject) => {
-        conexao.query(sql, values, (err, result) => {
+        client.query(sql, values, (err, result) => {
             if (err) {
                 return reject(new Error(`${mesageReject}: ${err.message}`));
             }
-            const row = JSON.parse(JSON.stringify(result));
-            return resolve(row);
+            return resolve(result.rows);  // O resultado no PostgreSQL está em `result.rows`
         });
     });
 };
 
-export default conexao
+export default client;
