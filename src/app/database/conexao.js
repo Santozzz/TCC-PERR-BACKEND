@@ -1,4 +1,8 @@
 import mysql from 'mysql'
+import dotenv from 'dotenv';
+
+// Carrega as variáveis de ambiente do arquivo .env
+dotenv.config();
 
 const conexao = mysql.createConnection({
     host: process.env.DB_HOST,
@@ -10,10 +14,10 @@ const conexao = mysql.createConnection({
 
 conexao.connect(error => {
     if (error) {
-      console.error('Erro ao conectar ao banco de dados:', error);
+      console.error('Erro ao conectar ao banco de dados:', error.message);
       return;
     }
-    console.log('Conectado ao banco de dados MySQL na Railway.');
+    console.log('Conectado ao banco de dados MySQL na Render.');
   });
 
 /**
