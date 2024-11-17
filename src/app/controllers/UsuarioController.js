@@ -51,7 +51,7 @@ class UsuarioController {
       res.json(row)
   }
   async showByNome(req, res) {
-    const nome = req.params.id
+    const nome = req.params.nome
     const row = await UsuarioRepository.findBynome(nome)
     res.json(row)
 }

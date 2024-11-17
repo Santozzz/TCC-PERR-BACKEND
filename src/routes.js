@@ -17,7 +17,7 @@ router.get('/checkSession', UsuarioController.checkSession);
 
 // ROTAS USUARIOS
 router.get('/usuarios', UsuarioController.index)
-router.get('/usuarios/:email', UsuarioController.showByEmail)
+router.get('/usuarios/email/:email', UsuarioController.showByEmail)
 router.get('/usuarios/id/:id', UsuarioController.showById)
 router.get('/usuarios/nome/:nome', UsuarioController.showByNome)
 router.post('/usuarios', UsuarioController.store)
