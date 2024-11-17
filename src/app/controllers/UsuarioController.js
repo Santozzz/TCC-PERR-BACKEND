@@ -20,17 +20,12 @@ class UsuarioController {
       
       logout(req, res) {
         req.session.destroy(err => {
-            if (err) {
-                return res.status(500).json({ message: 'Erro ao fazer logout', error: err.message });
-            }
-    
-            // Opcional: limpar o cookie manualmente
-            res.clearCookie('connect.sid'); 
-    
-            res.json({ message: 'Logout bem-sucedido' });
+          if (err) {
+            return res.status(500).json({ message: 'Erro ao fazer logout' });
+          }
+          res.json({ message: 'Logout bem-sucedido' });
         });
-    }
-    
+      }
       
       checkSession(req, res) {
         if (req.session.userId) {
