@@ -52,7 +52,7 @@ class UsuarioController {
   }
   async showByNome(req, res) {
     const nome = req.params.nome
-    const row = await UsuarioRepository.findBynome(nome)
+    const row = await UsuarioRepository.findByNome(nome)
     res.json(row)
 }
     async store(req, res) {
