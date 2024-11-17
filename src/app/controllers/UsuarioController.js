@@ -45,6 +45,11 @@ class UsuarioController {
         const row = await UsuarioRepository.findByEmail(email)
         res.json(row)
     }
+    async show(req, res) {
+      const id = req.params.id
+      const row = await UsuarioRepository.findById(id)
+      res.json(row)
+  }
     async store(req, res) {
         const usuario = req.body
         const row = await UsuarioRepository.create(usuario)
