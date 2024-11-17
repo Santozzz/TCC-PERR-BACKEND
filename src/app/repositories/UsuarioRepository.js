@@ -34,6 +34,12 @@ class UsuarioRepository {
         return consult(sql, values, 'Não foi possível encontrar o usuário pelo id');
     }
 
+    findByNome(nome) {
+        const sql = 'SELECT * FROM usuarios WHERE nome = $1';
+        const values = [nome];
+        return consult(sql, values, 'Não foi possível encontrar o usuário pelo nome');
+    }
+
 
     // Atualiza os dados de um usuário
     update(usuario, id) {

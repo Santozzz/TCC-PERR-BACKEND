@@ -40,16 +40,21 @@ class UsuarioController {
         const row = await UsuarioRepository.findAll() 
         res.json(row)
     }
-    async show(req, res) {
+    async showByEmail(req, res) {
         const email = req.params.email
         const row = await UsuarioRepository.findByEmail(email)
         res.json(row)
     }
-    async show(req, res) {
+    async showById(req, res) {
       const id = req.params.id
       const row = await UsuarioRepository.findById(id)
       res.json(row)
   }
+  async showByNome(req, res) {
+    const nome = req.params.id
+    const row = await UsuarioRepository.findBynome(nome)
+    res.json(row)
+}
     async store(req, res) {
         const usuario = req.body
         const row = await UsuarioRepository.create(usuario)
