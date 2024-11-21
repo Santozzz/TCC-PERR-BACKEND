@@ -46,7 +46,7 @@ class EmpresaController {
         res.json(row)
     }
     async showById(req, res) {
-      const id = req.params.id
+      const idempresas = req.params.id
       const row = await EmpresaRepository.findById(idempresas)
       res.json(row)
   }
@@ -72,7 +72,7 @@ class EmpresaController {
         res.json(row)
     }
     async delete(req, res) {
-        const id = req.params.id
+        const idempresas = req.params.id
         const row = await EmpresaRepository.delete(idempresas)
         res.json(row)
     }

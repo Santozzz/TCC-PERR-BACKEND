@@ -6,14 +6,22 @@ import routes from './routes.js';
 
 const app = express();
 
-// Middlewares
-app.use(cors({ credentials: true }));
+// Middleware CORS
+app.use(cors({
+  origin: 'https://tcc-perr-frontend.vercel.app', // Domínio do frontend hospedado
+  credentials: true, // Permitir envio de cookies/sessões
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
+}));
+
+// Middleware Body Parser
 app.use(bodyParser.json());
+
+// Middleware de Sessão
 app.use(session({
-  secret: 'seu_segredo_aqui',
+  secret: 'seu_segredo_aqui', // Substitua por uma string segura
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } // Altere para 'true' se usar HTTPS
+  cookie: { secure: false }, // Altere para 'true' em produção (HTTPS)
 }));
 
 // Rotas

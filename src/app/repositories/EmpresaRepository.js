@@ -28,7 +28,7 @@ class EmpresaRepository {
         return consult(sql, values, 'Não foi possível encontrar a empresa pelo email');
     }
 
-    findById(id) {
+    findById(idempresas) {
         const sql = 'SELECT * FROM empresas WHERE id = $1';
         const values = [idempresas];
         return consult(sql, values, 'Não foi possível encontrar a empresa pelo id');
