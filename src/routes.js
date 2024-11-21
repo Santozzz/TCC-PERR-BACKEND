@@ -2,17 +2,21 @@ import { Router } from "express";
 import UsuarioController from "./app/controllers/UsuarioController.js";
 import VagaController from "./app/controllers/VagaController.js";
 import CursoController from "./app/controllers/CursoController.js";
+import EmpresaController from "./app/controllers/EmpresaController.js";
 
 const router = Router()
 
 // Rota de login
 router.post('/login', UsuarioController.login);
+router.post('/login', EmpresaController.login);
 
 // Rota de logout
 router.post('/logout', UsuarioController.logout);
+router.post('/logout', EmpresaController.logout);
 
 // Rota para verificar a sessão
 router.get('/checkSession', UsuarioController.checkSession);
+router.get('/checkSession', EmpresaController.checkSession);
 
 
 // ROTAS USUARIOS
@@ -23,6 +27,16 @@ router.get('/usuarios/nome/:nome', UsuarioController.showByNome)
 router.post('/usuarios', UsuarioController.store)
 router.put('/usuarios/:id', UsuarioController.update)
 router.delete('/usuarios/:id', UsuarioController.delete)
+
+// ROTAS EMPRESAS
+router.get('/empresas', EmpresaController.index)
+router.get('/empresas/email/:email', EmpresaController.showByEmail)
+router.get('/empresas/id/:idempresas', EmpresaController.showById)
+router.get('/empresas/nome/:nome', EmpresaController.showByNome)
+router.get('/empresas/cnpj/:cnpj', EmpresaController.showByCnpj)
+router.post('/empresas', EmpresaController.store)
+router.put('/empresas/:idempresas', EmpresaController.update)
+router.delete('/empresas/:id', EmpresaController.delete)
 
 // ROTAS VAGAS
 router.post('/vagas', VagaController.store)
