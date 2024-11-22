@@ -2,21 +2,23 @@ import UsuarioRepository from "../repositories/UsuarioRepository.js"
 
 class UsuarioController {
 
-    async login(req, res) {
-        const { email, senha } = req.body;
-      
-        try {
-          const user = await UsuarioRepository.findUserByUsernameAndPassword(email, senha);
-          if (user.length > 0) {  // Se encontrou o usuário
-            req.session.userId = user[0].id;  // Armazena o ID do usuário na sessão
-            res.json({ message: 'Login bem-sucedido' });
-          } else {
+  async login(req, res) {
+    const { email, senha } = req.body;
+
+    try {
+        const user = await UsuarioRepository.findUserByUsernameAndPassword(email, senha);
+        if (user.length > 0) {
+            req.session.userId = user[0].id; // Salva o ID na sessão
+            req.session.save(); // Garante que a sessão é salva
+            res.json({ message: 'Login bem-sucedido', user: user[0] });
+        } else {
             res.status(401).json({ message: 'Credenciais inválidas' });
-          }
-        } catch (error) {
-          res.status(500).json({ message: 'Erro no login', error: error.message });
         }
-      }
+    } catch (error) {
+        res.status(500).json({ message: 'Erro no login', error: error.message });
+    }
+}
+
       
       logout(req, res) {
         req.session.destroy(err => {
@@ -29,12 +31,12 @@ class UsuarioController {
       
       checkSession(req, res) {
         if (req.session.userId) {
-          res.json({ loggedIn: true });
-          console.log(userId);
+            res.json({ loggedIn: true, userId: req.session.userId });
         } else {
-          res.json({ loggedIn: false });
+            res.json({ loggedIn: false });
         }
-      }
+    }
+    
 
       async updateStatus(req, res) {
         const { id } = req.params;

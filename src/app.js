@@ -3,6 +3,8 @@ import session from 'express-session';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import routes from './routes.js';
+import session from 'express-session';
+import connectPgSimple from 'connect-pg-simple';
 
 const app = express();
 
@@ -14,6 +16,26 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false } // Altere para 'true' se usar HTTPS
+}));
+
+const PgStore = connectPgSimple(session);
+
+app.use(session({
+    store: new PgStore({
+        conObject: { // Configuração da conexão ao banco de dados
+          host: 'aws-0-sa-east-1.pooler.supabase.com',
+          user: 'postgres.inhjqkfiufeoxiqqxypm',
+          password: 'TccPerr2024@',
+          database: 'postgres',
+          port: 6543
+        }
+    }),
+    secret: 'chave-secreta', // Substitua por uma chave segura
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 // 1 dia
+    }
 }));
 
 // Rotas
