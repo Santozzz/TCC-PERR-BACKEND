@@ -62,7 +62,7 @@ class EmpresaController {
 }
     async store(req, res) {
         const empresa = req.body
-        const row = await Repository.create(empresa)
+        const row = await EmpresaRepository.create(empresa)
         res.json(row)
     }
     async update(req, res) {
