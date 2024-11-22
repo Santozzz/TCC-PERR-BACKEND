@@ -36,6 +36,19 @@ class UsuarioController {
         }
       }
 
+      async updateStatus(req, res) {
+        const { id } = req.params;
+        const { status } = req.body;
+    
+        try {
+            const result = await UsuarioRepository.updateStatus(id, status);
+            res.json({ message: 'Status atualizado com sucesso', result });
+        } catch (error) {
+            res.status(500).json({ message: 'Erro ao atualizar status', error: error.message });
+        }
+    }
+    
+
     async index(req, res) {
         const row = await UsuarioRepository.findAll() 
         res.json(row)

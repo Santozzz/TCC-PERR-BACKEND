@@ -54,6 +54,14 @@ class UsuarioRepository {
         const values = [id];
         return consult(sql, values, 'Não foi possível deletar o usuário');
     }
+
+    // Atualiza o status de um usuário
+    updateStatus(id, status) {
+        const sql = 'UPDATE usuarios SET status = $1 WHERE id = $2';
+        const values = [status, id];
+        return consult(sql, values, 'Não foi possível atualizar o status do usuário');
+    }
+
 }
 
 export default new UsuarioRepository();
