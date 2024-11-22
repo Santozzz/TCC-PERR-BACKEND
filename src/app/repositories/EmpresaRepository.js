@@ -11,7 +11,7 @@ class EmpresaRepository {
     // Cria um novo usuário
     create(empresa) {
         const sql = 'INSERT INTO empresas (nome, email, telefone, senha, cnpj) VALUES ($1, $2, $3, $4, $5)';
-        const values = [empresa.nome, empresa.email, empresa.telefone, empresa.senha];
+        const values = [empresa.nome, empresa.email, empresa.telefone, empresa.senha, empresa.cnpj];
         return consult(sql, values, 'Não foi possível cadastrar');
     }
 
