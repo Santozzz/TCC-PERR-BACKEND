@@ -7,12 +7,12 @@ import EmpresaController from "./app/controllers/EmpresaController.js";
 const router = Router()
 
 // Rota de login
-router.post('usuarios/login', UsuarioController.login);
-router.post('empresas/login', EmpresaController.login);
+router.post('/login', UsuarioController.login);
+router.post('/loginEmpresa', EmpresaController.loginEmpresa);
 
 // Rota de logout
-router.post('usuarios/logout', UsuarioController.logout);
-router.post('empresas/logout', EmpresaController.logout);
+router.post('/logout', UsuarioController.logout);
+router.post('/logoutEmpresa', EmpresaController.logoutEmpresa);
 
 // Rota para verificar a sessão
 router.get('/checkSession', UsuarioController.checkSession);

@@ -2,7 +2,7 @@ import EmpresaRepository from "../repositories/EmpresaRepository.js";
 
 class EmpresaController {
 
-  async login(req, res) {
+  async loginEmpresa(req, res) {
     const { email, senha } = req.body;
   
     try {
@@ -17,7 +17,7 @@ class EmpresaController {
       res.status(500).json({ message: 'Erro no login', error: error.message });
     }
   }
-        logout(req, res) {
+        logoutEmpresa(req, res) {
         req.session.destroy(err => {
           if (err) {
             return res.status(500).json({ message: 'Erro ao fazer logout' });
