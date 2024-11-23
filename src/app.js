@@ -3,7 +3,7 @@ import session from 'express-session';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import routes from './routes.js';
-import session from 'express-session';
+import session from 'express-session';  
 import connectPgSimple from 'connect-pg-simple';
 
 const app = express();
@@ -27,7 +27,7 @@ app.use(session({
           user: 'postgres.inhjqkfiufeoxiqqxypm',
           password: 'TccPerr2024@',
           database: 'postgres',
-          port: 6543
+          port: 6543,
         }
     }),
     secret: 'chave-secreta', // Substitua por uma chave segura
