@@ -8,7 +8,10 @@ import connectPgSimple from 'connect-pg-simple';
 const app = express();
 
 // Middlewares
-app.use(cors({ credentials: true }));
+app.use(cors({
+  origin: 'http://localhost:5173/',  // Defina o domínio do frontend aqui
+  credentials: true                      // Permite enviar cookies com as requisições
+}));
 app.use(bodyParser.json());
 app.use(session({
   secret: 'seu_segredo_aqui',
