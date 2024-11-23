@@ -19,10 +19,7 @@ class UsuarioController {
       res.status(500).json({ message: 'Erro no login', error: error.message });
   }
 }
-  
-
-      
-      logout(req, res) {
+       logout(req, res) {
         req.session.destroy(err => {
           if (err) {
             return res.status(500).json({ message: 'Erro ao fazer logout' });
@@ -31,13 +28,13 @@ class UsuarioController {
         });
       }
       
-        async checkSession(req, res) {
-      if (req.session && req.session.userId) {
-          res.json({ loggedIn: true, userId: req.session.userId });
-      } else {
-          res.json({ loggedIn: false });
-      }
-      }
+      async checkSession(req, res) {
+    if (req.session && req.session.userId) {
+        res.json({ loggedIn: true, userId: req.session.userId });
+    } else {
+        res.json({ loggedIn: false });
+    }
+    }
 
       async updateStatus(req, res) {
         const { id } = req.params;
