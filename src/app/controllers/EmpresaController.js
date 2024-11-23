@@ -5,18 +5,19 @@ class EmpresaController {
   async login(req, res) {
     const { email, senha } = req.body;
   
-    // Autenticar empresa (substitua com sua lógica)
-    const empresa = await EmpresaRepository.findCompanyByEmailAndPassword(email, senha);
-    if (empresa) {
-      req.session.empresaId = empresa.id; // Salva o ID da empresa na sessão
-      res.json({ message: 'Login realizado com sucesso', empresaId: empresa.id });
-    } else {
-      res.status(401).json({ message: 'Credenciais inválidas' });
+    try {
+      const empre = await EmpresaRepository.findEmpresaByUsernameAndPassword(email, senha);
+      if (empre.length > 0) {  // Se encontrou o usuário
+        req.session.empreId = empre[0].id;  // Armazena o ID do usuário na sessão
+        res.json({ message: 'Login bem-sucedido' });
+      } else {
+        res.status(401).json({ message: 'Credenciais inválidas' });
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Erro no login', error: error.message });
     }
   }
-  
-      
-      logout(req, res) {
+        logout(req, res) {
         req.session.destroy(err => {
           if (err) {
             return res.status(500).json({ message: 'Erro ao fazer logout' });
@@ -28,7 +29,7 @@ class EmpresaController {
       async checkSession(req, res) {
         try {
           if (req.session && req.session.empreId) {
-            res.json({ loggedIn: true, userId: req.session.empreId });
+            res.json({ loggedIn: true, empreId: req.session.empreId });
           } else {
             res.json({ loggedIn: false });
           }
