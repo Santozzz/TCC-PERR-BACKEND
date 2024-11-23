@@ -31,21 +31,13 @@ class UsuarioController {
         });
       }
       
-      async checkSession(req, res) {
-        console.log('Sessão do usuário:', req.session.user);
-        try {
-          if (req.session && req.session.userId) {
-            res.json({ loggedIn: true, userId: req.session.userId });
-          } else {
-            res.json({ loggedIn: false });
-          }
-        } catch (error) {
-          console.error('Erro ao verificar a sessão:', error);
-          res.status(500).json({ loggedIn: false, error: 'Erro ao verificar a sessão' });
-        }
+        async checkSession(req, res) {
+      if (req.session && req.session.userId) {
+          res.json({ loggedIn: true, userId: req.session.userId });
+      } else {
+          res.json({ loggedIn: false });
       }
-      
-    
+      }
 
       async updateStatus(req, res) {
         const { id } = req.params;
