@@ -3,7 +3,6 @@ import session from 'express-session';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import routes from './routes.js';
-import session from 'express-session';  
 import connectPgSimple from 'connect-pg-simple';
 
 const app = express();
