@@ -26,20 +26,7 @@ class EmpresaController {
         });
       }
       
-      async checkSession(req, res) {
-        try {
-          if (req.session && req.session.empreId) {
-            res.json({ loggedIn: true, empreId: req.session.empreId });
-          } else {
-            res.json({ loggedIn: false });
-          }
-        } catch (error) {
-          console.error('Erro ao verificar a sessão:', error);
-          res.status(500).json({ loggedIn: false, error: 'Erro ao verificar a sessão' });
-        }
-      }
-      
-
+    
     async index(req, res) {
         const row = await EmpresaRepository.findAll() 
         res.json(row)
