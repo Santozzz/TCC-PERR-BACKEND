@@ -8,17 +8,16 @@ class UsuarioController {
     // Autenticar usuário (substitua com sua lógica)
     try {
       const user = await UsuarioRepository.findUserByUsernameAndPassword(email, senha);
-      if (user.length > 0) {
-          req.session.userId = user[0].id; // Salva o ID na sessão
-          req.session.save(); // Garante que a sessão é salva
-          res.json({ message: 'Login bem-sucedido', user: user[0] });
+      if (user.length > 0) {  // Se encontrou o usuário
+        req.session.userId = user[0].id;  // Armazena o ID do usuário na sessão
+        res.json({ message: 'Login bem-sucedido' });
       } else {
-          res.status(401).json({ message: 'Credenciais inválidas' });
+        res.status(401).json({ message: 'Credenciais inválidas' });
       }
-  } catch (error) {
+    } catch (error) {
       res.status(500).json({ message: 'Erro no login', error: error.message });
+    }
   }
-}
        logout(req, res) {
         req.session.destroy(err => {
           if (err) {
@@ -28,13 +27,14 @@ class UsuarioController {
         });
       }
       
-      async checkSession(req, res) {
-    if (req.session && req.session.userId) {
-        res.json({ loggedIn: true, userId: req.session.userId });
-    } else {
-        res.json({ loggedIn: false });
-    }
-    }
+      checkSession(req, res) {
+        if (req.session.userId) {
+          res.json({ loggedIn: true });
+          console.log(userId);
+        } else {
+          res.json({ loggedIn: false });
+        }
+      }
 
       async updateStatus(req, res) {
         const { id } = req.params;
