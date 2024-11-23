@@ -15,8 +15,8 @@ router.post('/logout', UsuarioController.logout);
 router.post('/logout', EmpresaController.logout);
 
 // Rota para verificar a sessão
-router.get('/checkSession', UsuarioController.checkSession);
-router.get('/checkSession', EmpresaController.checkSession);
+router.get('/checkSession/usuario', UsuarioController.checkSession);
+router.get('/checkSession/empresa', EmpresaController.checkSession);
 
 
 // ROTAS USUARIOS

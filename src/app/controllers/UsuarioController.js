@@ -4,20 +4,17 @@ class UsuarioController {
 
   async login(req, res) {
     const { email, senha } = req.body;
-
-    try {
-        const user = await UsuarioRepository.findUserByUsernameAndPassword(email, senha);
-        if (user.length > 0) {
-            req.session.userId = user[0].id; // Salva o ID na sessão
-            req.session.save(); // Garante que a sessão é salva
-            res.json({ message: 'Login bem-sucedido', user: user[0] });
-        } else {
-            res.status(401).json({ message: 'Credenciais inválidas' });
-        }
-    } catch (error) {
-        res.status(500).json({ message: 'Erro no login', error: error.message });
+  
+    // Autenticar usuário (substitua com sua lógica)
+    const usuario = await UsuarioRepository.findUserByEmailAndPassword(email, senha);
+    if (usuario) {
+      req.session.userId = usuario.id; // Salva o ID do usuário na sessão
+      res.json({ message: 'Login realizado com sucesso', userId: usuario.id });
+    } else {
+      res.status(401).json({ message: 'Credenciais inválidas' });
     }
-}
+  }
+  
 
       
       logout(req, res) {
@@ -29,13 +26,19 @@ class UsuarioController {
         });
       }
       
-      checkSession(req, res) {
-        if (req.session.userId) {
+      async checkSession(req, res) {
+        try {
+          if (req.session && req.session.userId) {
             res.json({ loggedIn: true, userId: req.session.userId });
-        } else {
+          } else {
             res.json({ loggedIn: false });
+          }
+        } catch (error) {
+          console.error('Erro ao verificar a sessão:', error);
+          res.status(500).json({ loggedIn: false, error: 'Erro ao verificar a sessão' });
         }
-    }
+      }
+      
     
 
       async updateStatus(req, res) {

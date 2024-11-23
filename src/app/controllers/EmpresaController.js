@@ -2,21 +2,19 @@ import EmpresaRepository from "../repositories/EmpresaRepository.js";
 
 class EmpresaController {
 
-    async login(req, res) {
-        const { email, senha } = req.body;
-      
-        try {
-          const empre = await EmpresaRepository.findEmpresaByUsernameAndPassword(email, senha);
-          if (empre.length > 0) {  // Se encontrou o usuário
-            req.session.empreId = empre[0].id;  // Armazena o ID do usuário na sessão
-            res.json({ message: 'Login bem-sucedido' });
-          } else {
-            res.status(401).json({ message: 'Credenciais inválidas' });
-          }
-        } catch (error) {
-          res.status(500).json({ message: 'Erro no login', error: error.message });
-        }
-      }
+  async login(req, res) {
+    const { email, senha } = req.body;
+  
+    // Autenticar empresa (substitua com sua lógica)
+    const empresa = await EmpresaRepository.findCompanyByEmailAndPassword(email, senha);
+    if (empresa) {
+      req.session.empresaId = empresa.id; // Salva o ID da empresa na sessão
+      res.json({ message: 'Login realizado com sucesso', empresaId: empresa.id });
+    } else {
+      res.status(401).json({ message: 'Credenciais inválidas' });
+    }
+  }
+  
       
       logout(req, res) {
         req.session.destroy(err => {
@@ -27,14 +25,19 @@ class EmpresaController {
         });
       }
       
-      checkSession(req, res) {
-        if (req.session.empreId) {
-          res.json({ loggedIn: true });
-          console.log(empreId);
-        } else {
-          res.json({ loggedIn: false });
+      async checkSession(req, res) {
+        try {
+          if (req.session && req.session.empreId) {
+            res.json({ loggedIn: true, userId: req.session.empreId });
+          } else {
+            res.json({ loggedIn: false });
+          }
+        } catch (error) {
+          console.error('Erro ao verificar a sessão:', error);
+          res.status(500).json({ loggedIn: false, error: 'Erro ao verificar a sessão' });
         }
       }
+      
 
     async index(req, res) {
         const row = await EmpresaRepository.findAll() 
