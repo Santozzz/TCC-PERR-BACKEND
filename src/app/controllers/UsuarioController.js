@@ -32,6 +32,7 @@ class UsuarioController {
       }
       
       async checkSession(req, res) {
+        console.log('Sessão do usuário:', req.session.user);
         try {
           if (req.session && req.session.userId) {
             res.json({ loggedIn: true, userId: req.session.userId });
