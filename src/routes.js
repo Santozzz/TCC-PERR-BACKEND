@@ -28,6 +28,7 @@ router.put('/usuarios/:id', UsuarioController.update)
 router.delete('/usuarios/:id', UsuarioController.delete)
 router.put('/usuarios/:id/status', UsuarioController.updateStatus);
 router.get('/usuarios/validados', UsuarioController.getUsuariosValidados);
+router.get('/usuarios/naovalidados', UsuarioController.getUsuariosNaoValidados);
 
 
 // ROTAS EMPRESAS

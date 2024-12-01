@@ -68,6 +68,11 @@ class UsuarioRepository {
         return consult(sql, values, 'Não foi possível buscar os usuários validados');
     }
     
+    getUsuariosNaoValidados() {
+        const sql = 'SELECT * FROM usuarios WHERE status = $0';
+        const values = [false]; // Busca usuários com status true
+        return consult(sql, values, 'Não foi possível buscar os usuários nao validados');
+    }
 
 }
 

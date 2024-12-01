@@ -56,6 +56,15 @@ class UsuarioController {
           res.status(500).json({ message: 'Erro ao buscar usuários validados', error: error.message });
       }
   }
+
+  async getUsuariosNaoValidados(req, res) {
+    try {
+        const usuariosNaoValidados = await UsuarioRepository.getUsuariosNaoValidados();
+        res.json(usuariosNaoValidados);
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar usuários nao validados', error: error.message });
+    }
+}
   
 
     async index(req, res) {
