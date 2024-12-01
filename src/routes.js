@@ -27,6 +27,8 @@ router.post('/usuarios', UsuarioController.store)
 router.put('/usuarios/:id', UsuarioController.update)
 router.delete('/usuarios/:id', UsuarioController.delete)
 router.put('/usuarios/:id/status', UsuarioController.updateStatus);
+router.get('/usuarios/validados', UsuarioController.getUsuariosValidados);
+
 
 // ROTAS EMPRESAS
 router.get('/empresas', EmpresaController.index)

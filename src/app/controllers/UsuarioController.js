@@ -48,6 +48,15 @@ class UsuarioController {
         }
     }
     
+    async getUsuariosValidados(req, res) {
+      try {
+          const usuariosValidados = await UsuarioRepository.getUsuariosValidados();
+          res.json(usuariosValidados);
+      } catch (error) {
+          res.status(500).json({ message: 'Erro ao buscar usuários validados', error: error.message });
+      }
+  }
+  
 
     async index(req, res) {
         const row = await UsuarioRepository.findAll() 

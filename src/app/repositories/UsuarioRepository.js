@@ -62,6 +62,13 @@ class UsuarioRepository {
         return consult(sql, values, 'Não foi possível atualizar o status do usuário');
     }
 
+    getUsuariosValidados() {
+        const sql = 'SELECT * FROM usuarios WHERE status = $1';
+        const values = [true]; // Busca usuários com status true
+        return consult(sql, values, 'Não foi possível buscar os usuários validados');
+    }
+    
+
 }
 
 export default new UsuarioRepository();
